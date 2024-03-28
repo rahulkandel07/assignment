@@ -13,11 +13,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Navigate to ExploreSouth lake acreen after 3sec
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.exploreSouthLakeScreen,
-        (route) => false,
-      );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Timer(const Duration(seconds: 3), () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.exploreSouthLakeScreen,
+          (route) => false,
+        );
+      });
     });
 
     return Scaffold(
