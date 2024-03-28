@@ -12,7 +12,7 @@ class ExploreSouthlakeScreen extends StatelessWidget {
     {
       "image": AppImages.personLove,
       "title": "What we do?",
-      "route": AppRoutes.exploreSouthLakeScreen,
+      "route": AppRoutes.whatWeDoScreenRoute,
       "color": AppColors.oxff13AF05,
     },
     {
@@ -102,8 +102,8 @@ class ExploreSouthlakeScreen extends StatelessWidget {
                         crossAxisSpacing: 40,
                         mainAxisSpacing: 60,
                       ),
-                      itemBuilder: (context, index) =>
-                          _buildInfoCard(item: infoCardLists[index]),
+                      itemBuilder: (context, index) => _buildInfoCard(
+                          item: infoCardLists[index], context: context),
                       itemCount: infoCardLists.length,
                     ),
                   ),
@@ -173,40 +173,44 @@ class ExploreSouthlakeScreen extends StatelessWidget {
     );
   }
 
-  _buildInfoCard({required Map<String, dynamic> item}) {
-    return Container(
-      width: 83.w,
-      height: 80.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.r),
-        color: item["color"],
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 4,
-            spreadRadius: 1,
-            color: Colors.black26,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(item["image"]),
-          5.verticalSpace,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Text(
-              item["title"],
-              textAlign: TextAlign.center,
-              style: GoogleFonts.robotoCondensed(
-                fontSize: 10.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+  _buildInfoCard(
+      {required Map<String, dynamic> item, required BuildContext context}) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(item["route"]),
+      child: Container(
+        width: 83.w,
+        height: 80.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.r),
+          color: item["color"],
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(0, 4),
+              blurRadius: 4,
+              spreadRadius: 1,
+              color: Colors.black26,
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(item["image"]),
+            5.verticalSpace,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Text(
+                item["title"],
+                textAlign: TextAlign.center,
+                style: GoogleFonts.robotoCondensed(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
