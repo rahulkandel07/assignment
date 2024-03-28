@@ -18,7 +18,7 @@ class ExploreSouthlakeScreen extends StatelessWidget {
     {
       "image": AppImages.love,
       "title": "Our Impact",
-      "route": AppRoutes.exploreSouthLakeScreen,
+      "route": AppRoutes.ourImpactScreenRoute,
       "color": AppColors.oxff146634,
     },
     {

@@ -1,5 +1,6 @@
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
+import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/what_we_do_screen.dart';
 import 'package:assignment/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           routes: {
             AppRoutes.exploreSouthLakeScreen: (ctx) => ExploreSouthlakeScreen(),
             AppRoutes.whatWeDoScreenRoute: (ctx) => const WhatWeDoScreen(),
+            AppRoutes.ourImpactScreenRoute: (ctx) => const OurImpactScreen(),
           },
         );
       },

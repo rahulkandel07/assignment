@@ -8,4 +8,9 @@ class AppRoutes {
   /// Route For the What we do  screen
   ///
   static const String whatWeDoScreenRoute = "/what-we-do";
+
+  ///
+  /// Route For the Our impact  screen
+  ///
+  static const String ourImpactScreenRoute = "/our-impact";
 }
