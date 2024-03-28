@@ -24,7 +24,7 @@ class ExploreSouthlakeScreen extends StatelessWidget {
     {
       "image": AppImages.notebook,
       "title": "How can you help?",
-      "route": AppRoutes.exploreSouthLakeScreen,
+      "route": AppRoutes.howCanYouHelpScreenRoute,
       "color": AppColors.oxff13AF05,
     },
     {

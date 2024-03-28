@@ -13,4 +13,9 @@ class AppRoutes {
   /// Route For the Our impact  screen
   ///
   static const String ourImpactScreenRoute = "/our-impact";
+
+  ///
+  /// Route For the How can you help  screen
+  ///
+  static const String howCanYouHelpScreenRoute = "/how-can-you-help";
 }
