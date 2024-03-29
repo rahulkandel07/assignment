@@ -2,6 +2,7 @@ import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
 import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dart';
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
+import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
 import 'package:assignment/features/homepage/screens/what_we_do_screen.dart';
 import 'package:assignment/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.ourImpactScreenRoute: (ctx) => const OurImpactScreen(),
             AppRoutes.howCanYouHelpScreenRoute: (ctx) =>
                 const HowCanYouHelpScreen(),
+            AppRoutes.ourPartnerScreenRoute: (ctx) => const OurPartnerScreen(),
           },
         );
       },

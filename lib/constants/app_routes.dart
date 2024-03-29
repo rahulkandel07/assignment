@@ -18,4 +18,9 @@ class AppRoutes {
   /// Route For the How can you help  screen
   ///
   static const String howCanYouHelpScreenRoute = "/how-can-you-help";
+
+  ///
+  /// Route For the Our partner screen
+  ///
+  static const String ourPartnerScreenRoute = "/our-partner";
 }
