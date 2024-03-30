@@ -42,7 +42,7 @@ class ExploreSouthlakeScreen extends StatelessWidget {
     {
       "image": AppImages.phone,
       "title": "Contact Us",
-      "route": AppRoutes.exploreSouthLakeScreen,
+      "route": AppRoutes.getInTouchScreenRoute,
       "color": AppColors.oxffEECF27,
     },
     {

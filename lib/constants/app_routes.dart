@@ -23,4 +23,9 @@ class AppRoutes {
   /// Route For the Our partner screen
   ///
   static const String ourPartnerScreenRoute = "/our-partner";
+
+  ///
+  /// Route For the Our partner screen
+  ///
+  static const String getInTouchScreenRoute = "/get-in-touch-screen";
 }

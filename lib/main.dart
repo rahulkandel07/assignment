@@ -1,5 +1,6 @@
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
+import 'package:assignment/features/homepage/screens/get_in_touch_screen.dart';
 import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dart';
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.howCanYouHelpScreenRoute: (ctx) =>
                 const HowCanYouHelpScreen(),
             AppRoutes.ourPartnerScreenRoute: (ctx) => const OurPartnerScreen(),
+            AppRoutes.getInTouchScreenRoute: (ctx) => const GetInTouchScreen(),
           },
         );
       },
