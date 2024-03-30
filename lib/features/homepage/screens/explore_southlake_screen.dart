@@ -4,6 +4,7 @@ import 'package:assignment/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExploreSouthlakeScreen extends StatelessWidget {
   ExploreSouthlakeScreen({super.key});
@@ -64,6 +65,16 @@ class ExploreSouthlakeScreen extends StatelessWidget {
       "color": AppColors.oxff13AF05,
     },
   ];
+
+  _openGoogleMapLocation() async {
+    print("launched");
+    if (!await launchUrl(
+      Uri.parse("https://maps.app.goo.gl/34x1MZR7gp5YSbc17"),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not open google maps');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +187,9 @@ class ExploreSouthlakeScreen extends StatelessWidget {
   _buildInfoCard(
       {required Map<String, dynamic> item, required BuildContext context}) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(item["route"]),
+      onTap: () => item["title"] == "Location"
+          ? _openGoogleMapLocation()
+          : Navigator.of(context).pushNamed(item["route"]),
       child: Container(
         width: 83.w,
         height: 80.h,
