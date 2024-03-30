@@ -1,5 +1,5 @@
 import 'package:assignment/constants/app_routes.dart';
-import 'package:assignment/features/auth/screens/login_screen.dart';
+import 'package:assignment/features/auth/screens/register_screen.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
 import 'package:assignment/features/homepage/screens/get_in_touch_screen.dart';
 import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
             useMaterial3: true,
           ),
-          home: const LoginScreen(),
+          home: const RegisterScreen(),
           routes: {
             AppRoutes.exploreSouthLakeScreen: (ctx) => ExploreSouthlakeScreen(),
             AppRoutes.whatWeDoScreenRoute: (ctx) => const WhatWeDoScreen(),
