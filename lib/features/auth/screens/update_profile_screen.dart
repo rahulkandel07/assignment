@@ -53,24 +53,6 @@ class UpdateProfileScreen extends StatelessWidget {
                     ),
                   ),
                   20.verticalSpace,
-                  RichText(
-                    text: TextSpan(
-                        text: "Already have an account? ",
-                        style: GoogleFonts.roboto(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "Login now",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ]),
-                  ),
-                  20.verticalSpace,
                 ],
               ),
             )
