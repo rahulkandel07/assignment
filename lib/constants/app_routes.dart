@@ -28,4 +28,14 @@ class AppRoutes {
   /// Route For the Our partner screen
   ///
   static const String getInTouchScreenRoute = "/get-in-touch-screen";
+
+  ///
+  /// Routes for login screen
+  ///
+  static const String loginRoute = "/login";
+
+  ///
+  /// Routes for register screen
+  ///
+  static const String registerScreen = "/register";
 }

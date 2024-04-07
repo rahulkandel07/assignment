@@ -1,4 +1,6 @@
 import 'package:assignment/constants/app_routes.dart';
+import 'package:assignment/features/auth/screens/login_screen.dart';
+import 'package:assignment/features/auth/screens/register_screen.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
 import 'package:assignment/features/homepage/screens/get_in_touch_screen.dart';
 import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
             useMaterial3: true,
           ),
-          home: ExploreSouthlakeScreen(),
+          home: const RegisterScreen(),
           routes: {
             AppRoutes.exploreSouthLakeScreen: (ctx) => ExploreSouthlakeScreen(),
             AppRoutes.whatWeDoScreenRoute: (ctx) => const WhatWeDoScreen(),
@@ -48,6 +50,8 @@ class MyApp extends StatelessWidget {
                 const HowCanYouHelpScreen(),
             AppRoutes.ourPartnerScreenRoute: (ctx) => const OurPartnerScreen(),
             AppRoutes.getInTouchScreenRoute: (ctx) => const GetInTouchScreen(),
+            AppRoutes.loginRoute: (ctx) => const LoginScreen(),
+            AppRoutes.registerScreen: (ctx) => const RegisterScreen(),
           },
         );
       },

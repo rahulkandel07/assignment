@@ -1,4 +1,5 @@
 import 'package:assignment/constants/app_colors.dart';
+import 'package:assignment/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -124,22 +125,26 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   20.verticalSpace,
-                  RichText(
-                    text: TextSpan(
-                        text: "Don't have any account? ",
-                        style: GoogleFonts.roboto(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "Register",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ]),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.registerScreen),
+                    child: RichText(
+                      text: TextSpan(
+                          text: "Don't have any account? ",
+                          style: GoogleFonts.roboto(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "Register",
+                              style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            )
+                          ]),
+                    ),
                   ),
                 ],
               ),
