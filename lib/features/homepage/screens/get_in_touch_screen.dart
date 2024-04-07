@@ -1,10 +1,33 @@
 import 'package:assignment/constants/app_colors.dart';
+import 'package:assignment/core/network/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GetInTouchScreen extends StatelessWidget {
+class GetInTouchScreen extends StatefulWidget {
   const GetInTouchScreen({super.key});
+
+  @override
+  State<GetInTouchScreen> createState() => _GetInTouchScreenState();
+}
+
+class _GetInTouchScreenState extends State<GetInTouchScreen> {
+  final GlobalKey<FormState> _contactUsKey = GlobalKey<FormState>();
+  // * Contact US Form Controllers
+  TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  TextEditingController lastNameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController messageTextEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameTextEditingController.dispose();
+    lastNameTextEditingController.dispose();
+    emailTextEditingController.dispose();
+    messageTextEditingController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,216 +186,261 @@ class GetInTouchScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "NAME",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                              color: Colors.black,
+                      child: Form(
+                        key: _contactUsKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "NAME",
+                              style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          5.verticalSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 135.w,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    constraints:
-                                        BoxConstraints(maxHeight: 30.h),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                            5.verticalSpace,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 135.w,
+                                  child: TextFormField(
+                                    controller: firstNameTextEditingController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please Provide First Name";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.never,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    contentPadding: EdgeInsets.all(8.sp),
-                                    label: Text(
-                                      "First",
-                                      style: GoogleFonts.roboto(
-                                        color: AppColors.oxffA6A6A6,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
+                                      contentPadding: EdgeInsets.all(8.sp),
+                                      label: Text(
+                                        "First",
+                                        style: GoogleFonts.roboto(
+                                          color: AppColors.oxffA6A6A6,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              // * LAst Name
-                              SizedBox(
-                                width: 135.w,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    constraints:
-                                        BoxConstraints(maxHeight: 30.h),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                                // * LAst Name
+                                SizedBox(
+                                  width: 135.w,
+                                  child: TextFormField(
+                                    controller: lastNameTextEditingController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please Provide Last Name";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.never,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.r),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                        borderSide: const BorderSide(
+                                            color: AppColors.oxffA6A6A6),
                                       ),
-                                      borderSide: const BorderSide(
-                                          color: AppColors.oxffA6A6A6),
-                                    ),
-                                    contentPadding: EdgeInsets.all(8.sp),
-                                    label: Text(
-                                      "Last",
-                                      style: GoogleFonts.roboto(
-                                        color: AppColors.oxffA6A6A6,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
+                                      contentPadding: EdgeInsets.all(8.sp),
+                                      label: Text(
+                                        "Last",
+                                        style: GoogleFonts.roboto(
+                                          color: AppColors.oxffA6A6A6,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
+                                )
+                              ],
+                            ),
 
-                          // * Email Address
-                          10.verticalSpace,
-                          Text(
-                            "EMAIL",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                              color: Colors.black,
+                            // * Email Address
+                            10.verticalSpace,
+                            Text(
+                              "EMAIL",
+                              style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          5.verticalSpace,
-                          TextFormField(
-                            decoration: InputDecoration(
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              constraints: BoxConstraints(maxHeight: 30.h),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                            5.verticalSpace,
+                            TextFormField(
+                              controller: emailTextEditingController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please Provide Email Address";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
+                                contentPadding: EdgeInsets.all(8.sp),
                               ),
-                              contentPadding: EdgeInsets.all(8.sp),
                             ),
-                          ),
 
-                          // * Message BOX
-                          10.verticalSpace,
-                          Text(
-                            "MESSAGE",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                              color: Colors.black,
+                            // * Message BOX
+                            10.verticalSpace,
+                            Text(
+                              "MESSAGE",
+                              style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          5.verticalSpace,
-                          TextFormField(
-                            maxLines: 5,
-                            minLines: 1,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                            5.verticalSpace,
+                            TextFormField(
+                              controller: messageTextEditingController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please Provide Message";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              maxLines: 5,
+                              minLines: 1,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.r),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.r),
+                                  ),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.oxffA6A6A6),
                                 ),
-                                borderSide: const BorderSide(
-                                    color: AppColors.oxffA6A6A6),
+                                contentPadding: EdgeInsets.all(8.sp),
                               ),
-                              contentPadding: EdgeInsets.all(8.sp),
                             ),
-                          ),
 
-                          20.verticalSpace,
+                            20.verticalSpace,
 
-                          Center(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(120.w, 31.h),
-                                backgroundColor: AppColors.oxff13AF05,
-                                elevation: 4,
-                                shadowColor: Colors.black26,
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "Submit",
-                                style: GoogleFonts.roboto(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
+                            Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: Size(120.w, 31.h),
+                                  backgroundColor: AppColors.oxff13AF05,
+                                  elevation: 4,
+                                  shadowColor: Colors.black26,
+                                ),
+                                onPressed: () {
+                                  _contactUsKey.currentState!.save();
+                                  if (!_contactUsKey.currentState!.validate()) {
+                                    return;
+                                  }
+                                  Map<String, dynamic> data = {
+                                    "firstName":
+                                        firstNameTextEditingController.text,
+                                    "lastName":
+                                        lastNameTextEditingController.text,
+                                    "email": emailTextEditingController.text,
+                                    "message":
+                                        messageTextEditingController.text,
+                                  };
+                                  FirebaseDatabase().submitContactUs(data);
+                                },
+                                child: Text(
+                                  "Submit",
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          15.verticalSpace,
-                        ],
+                            15.verticalSpace,
+                          ],
+                        ),
                       ),
                     ),
                     15.verticalSpace,

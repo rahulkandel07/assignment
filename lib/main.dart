@@ -5,12 +5,21 @@ import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dar
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
 import 'package:assignment/features/homepage/screens/what_we_do_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,6 +32,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (_, child) {
         return MaterialApp(
+          navigatorKey: navigatorKey,
           title: 'Flutter Demo',
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,

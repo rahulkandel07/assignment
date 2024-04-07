@@ -7,7 +7,7 @@ class AppImages {
 
   static const clothDonate = "assets/images/cloth_donation.png";
 
-  static const christine = "assets/images/christine.png";
+  static const christine = "assets/images/christine_person.png";
 
   static const personLove = "assets/images/what_we_do.png";
 
