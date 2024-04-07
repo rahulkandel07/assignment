@@ -426,7 +426,14 @@ class _GetInTouchScreenState extends State<GetInTouchScreen> {
                                     "message":
                                         messageTextEditingController.text,
                                   };
-                                  FirebaseDatabase().submitContactUs(data);
+                                  FirebaseDatabase()
+                                      .submitContactUs(data)
+                                      .then((_) {
+                                    firstNameTextEditingController.clear();
+                                    lastNameTextEditingController.clear();
+                                    emailTextEditingController.clear();
+                                    messageTextEditingController.clear();
+                                  });
                                 },
                                 child: Text(
                                   "Submit",
