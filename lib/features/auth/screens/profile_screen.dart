@@ -1,9 +1,33 @@
 import 'package:assignment/core/utils/custom_text_field.dart';
+import 'package:assignment/features/auth/model/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScreen extends StatelessWidget {
+import '../../../core/network/auth.dart';
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  Users? user;
+
+  getUserProfileInfo() async {
+    Users? users = await Auth().returnUserData();
+
+    setState(() {
+      user = users;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserProfileInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,24 +67,30 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 240.w,
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         CustomTextField(
                           labelName: "Name",
-                          initialValue: "Bishal Kharel",
+                          controller: TextEditingController(
+                              text: user == null
+                                  ? ""
+                                  : "${user!.firstName} ${user!.lastName}"),
                         ),
                         CustomTextField(
                           labelName: "Address",
-                          initialValue: "Dummy Address",
+                          controller: TextEditingController(
+                              text: user == null ? "" : user!.address),
                         ),
                         CustomTextField(
                           labelName: "Email Address",
-                          initialValue: "Bishal Kharel",
+                          controller: TextEditingController(
+                              text: user == null ? "" : user!.email),
                         ),
                         CustomTextField(
                           labelName: "Phone Number",
-                          initialValue: "Bishal Kharel",
+                          controller: TextEditingController(
+                              text: user == null ? "" : user!.phone),
                         ),
                       ],
                     ),

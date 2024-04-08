@@ -38,4 +38,9 @@ class AppRoutes {
   /// Routes for register screen
   ///
   static const String registerScreen = "/register";
+
+  ///
+  /// Routes for profile screen
+  ///
+  static const String profileScreen = "/profile";
 }
