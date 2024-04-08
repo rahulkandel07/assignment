@@ -1,3 +1,4 @@
+import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/core/utils/custom_text_field.dart';
 import 'package:assignment/features/auth/model/users.dart';
 import 'package:flutter/material.dart';
@@ -105,6 +106,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {},
                     child: const Text(
                       "Update",
+                    ),
+                  ),
+                  20.verticalSpace,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(250.w, 20.h),
+                    ),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.requestDonationScreen),
+                    child: const Text(
+                      "Request Donation",
                     ),
                   ),
                 ],

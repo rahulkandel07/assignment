@@ -43,4 +43,9 @@ class AppRoutes {
   /// Routes for profile screen
   ///
   static const String profileScreen = "/profile";
+
+  ///
+  /// Routes for request donation screen
+  ///
+  static const String requestDonationScreen = "/request-donation";
 }

@@ -1,4 +1,5 @@
 import 'package:assignment/constants/app_routes.dart';
+import 'package:assignment/features/assistant/assistant_form_screen.dart';
 import 'package:assignment/features/auth/screens/login_screen.dart';
 import 'package:assignment/features/auth/screens/profile_screen.dart';
 import 'package:assignment/features/auth/screens/register_screen.dart';
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
             AppRoutes.loginRoute: (ctx) => const LoginScreen(),
             AppRoutes.registerScreen: (ctx) => const RegisterScreen(),
             AppRoutes.profileScreen: (ctx) => const ProfileScreen(),
+            AppRoutes.requestDonationScreen: (ctx) =>
+                const AssistantFormScreen(),
           },
         );
       },
