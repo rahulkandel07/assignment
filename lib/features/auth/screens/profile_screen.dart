@@ -103,7 +103,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       foregroundColor: Colors.white,
                       fixedSize: Size(250.w, 20.h),
                     ),
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.updateProfileScreen),
                     child: const Text(
                       "Update",
                     ),
@@ -119,6 +120,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         .pushNamed(AppRoutes.requestDonationScreen),
                     child: const Text(
                       "Request Donation",
+                    ),
+                  ),
+                  20.verticalSpace,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(250.w, 20.h),
+                    ),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.myRequestScreen),
+                    child: const Text(
+                      "My Requests",
                     ),
                   ),
                 ],

@@ -1,7 +1,9 @@
 import 'package:assignment/constants/app_colors.dart';
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/core/network/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,6 +23,20 @@ class _LoginScreenState extends State<LoginScreen> {
       TextEditingController();
 
   final TextEditingController passwordTextController = TextEditingController();
+
+  sendToProfileIfLogin() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    if (firebaseAuth.currentUser != null) {
+      Navigator.of(context).popAndPushNamed(AppRoutes.profileScreen);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance
+        .addPostFrameCallback((_) => sendToProfileIfLogin());
+  }
 
   @override
   Widget build(BuildContext context) {

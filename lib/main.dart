@@ -1,8 +1,10 @@
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/features/assistant/assistant_form_screen.dart';
+import 'package:assignment/features/assistant/show_assistant_screen.dart';
 import 'package:assignment/features/auth/screens/login_screen.dart';
 import 'package:assignment/features/auth/screens/profile_screen.dart';
 import 'package:assignment/features/auth/screens/register_screen.dart';
+import 'package:assignment/features/auth/screens/update_profile_screen.dart';
 import 'package:assignment/features/homepage/screens/explore_southlake_screen.dart';
 import 'package:assignment/features/homepage/screens/get_in_touch_screen.dart';
 import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dart';
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
             useMaterial3: true,
           ),
-          home: const ProfileScreen(),
+          home: const LoginScreen(),
           routes: {
             AppRoutes.exploreSouthLakeScreen: (ctx) => ExploreSouthlakeScreen(),
             AppRoutes.whatWeDoScreenRoute: (ctx) => const WhatWeDoScreen(),
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
             AppRoutes.profileScreen: (ctx) => const ProfileScreen(),
             AppRoutes.requestDonationScreen: (ctx) =>
                 const AssistantFormScreen(),
+            AppRoutes.updateProfileScreen: (ctx) => const UpdateProfileScreen(),
+            AppRoutes.myRequestScreen: (ctx) => const ShowAssistantScreen(),
           },
         );
       },

@@ -3,8 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UpdateProfileScreen extends StatelessWidget {
+import '../../../core/network/auth.dart';
+import '../model/users.dart';
+
+class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
+
+  @override
+  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+}
+
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  String? firstName;
+  String? lastName;
+  String? emailAddress;
+  String? phoneNumber;
+  String? address;
+
+  getUserProfileInfo() async {
+    Users? users = await Auth().returnUserData();
+
+    if (users != null) {
+      setState(() {
+        firstName = users.firstName;
+        lastName = users.lastName;
+        emailAddress = users.email;
+        phoneNumber = users.phone;
+        address = users.address;
+      });
+    }
+  }
+
+  final GlobalKey<FormState> _profileUpdateKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    getUserProfileInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,42 +54,60 @@ class UpdateProfileScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 30.h, left: 24.w, right: 24.w),
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      "Update Profile",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(fontWeight: FontWeight.w700),
+              child: Form(
+                key: _profileUpdateKey,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text(
+                        "Update Profile",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                  20.verticalSpace,
-                  _customTextField(labelName: "First Name"),
-                  10.verticalSpace,
-                  _customTextField(labelName: "Last Name"),
-                  10.verticalSpace,
-                  _customTextField(labelName: "Email Address"),
-                  10.verticalSpace,
-                  _customTextField(labelName: "Phone Number"),
-                  10.verticalSpace,
-                  _customTextField(labelName: "Address"),
-                  20.verticalSpace,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.oxff13AF05,
-                      foregroundColor: Colors.white,
-                      elevation: 5,
-                      fixedSize: Size(250.w, 20.h),
+                    20.verticalSpace,
+                    _customTextField(
+                      labelName: "First Name",
+                      initialValue: firstName ?? "",
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Update",
+                    10.verticalSpace,
+                    _customTextField(
+                      labelName: "Last Name",
+                      initialValue: lastName ?? "",
                     ),
-                  ),
-                  20.verticalSpace,
-                ],
+                    10.verticalSpace,
+                    _customTextField(
+                      labelName: "Email Address",
+                      initialValue: emailAddress ?? "",
+                    ),
+                    10.verticalSpace,
+                    _customTextField(
+                      labelName: "Phone Number",
+                      initialValue: phoneNumber ?? "",
+                    ),
+                    10.verticalSpace,
+                    _customTextField(
+                      labelName: "Address",
+                      initialValue: address ?? "",
+                    ),
+                    20.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.oxff13AF05,
+                        foregroundColor: Colors.white,
+                        elevation: 5,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Update",
+                      ),
+                    ),
+                    20.verticalSpace,
+                  ],
+                ),
               ),
             )
           ],
@@ -62,8 +116,10 @@ class UpdateProfileScreen extends StatelessWidget {
     );
   }
 
-  _customTextField({required String labelName}) {
+  _customTextField({required String labelName, required String initialValue}) {
+    print(initialValue);
     return TextFormField(
+      initialValue: initialValue,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),

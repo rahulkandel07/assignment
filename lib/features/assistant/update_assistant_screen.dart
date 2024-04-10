@@ -1,19 +1,21 @@
 import 'package:assignment/constants/app_colors.dart';
-import 'package:assignment/core/network/firebase_database.dart';
 import 'package:assignment/features/assistant/mode/assistant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AssistantFormScreen extends StatefulWidget {
-  const AssistantFormScreen({super.key});
+import '../../core/network/firebase_database.dart';
+
+class UpdateAssistantScreen extends StatefulWidget {
+  final Assistant assistant;
+  const UpdateAssistantScreen({required this.assistant, super.key});
 
   @override
-  State<AssistantFormScreen> createState() => _AssistantFormScreenState();
+  State<UpdateAssistantScreen> createState() => _UpdateAssistantScreenState();
 }
 
-class _AssistantFormScreenState extends State<AssistantFormScreen> {
+class _UpdateAssistantScreenState extends State<UpdateAssistantScreen> {
   // * Assitant Form Key
   final GlobalKey<FormState> _assistantKey = GlobalKey<FormState>();
 
@@ -65,7 +67,10 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                     20.verticalSpace,
                     _customTextField(
                       labelName: "Number of members",
-                      textEditingController: membersController,
+                      initialValue: widget.assistant.members,
+                      onSaved: (value) {
+                        membersController.text = value!;
+                      },
                       textInputType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -77,7 +82,11 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                     ),
                     10.verticalSpace,
                     TextFormField(
-                      controller: dateController,
+                      controller:
+                          dateController.text.isEmpty ? null : dateController,
+                      initialValue: dateController.text.isEmpty
+                          ? widget.assistant.date
+                          : null,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please select date";
@@ -142,7 +151,10 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                     _customTextField(
                       labelName: "Enter Donation request notes",
                       maxLines: 5,
-                      textEditingController: notesController,
+                      initialValue: widget.assistant.notes,
+                      onSaved: (value) {
+                        notesController.text = value!;
+                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please provide donation request notes";
@@ -154,7 +166,10 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Suburb",
-                      textEditingController: subrubController,
+                      initialValue: widget.assistant.subrub,
+                      onSaved: (value) {
+                        subrubController.text = value!;
+                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please provide suburb detail";
@@ -166,7 +181,10 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Hampers",
-                      textEditingController: hampersController,
+                      initialValue: widget.assistant.hampers,
+                      onSaved: (value) {
+                        hampersController.text = value!;
+                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please provide hampers detail";
@@ -207,7 +225,8 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                               );
 
                               FirebaseDatabase()
-                                  .requestDontation(assistant.toMap())
+                                  .updateDonation(assistant.toMap(),
+                                      widget.assistant.docsId!)
                                   .then((value) {
                                 setState(() {
                                   isProcessing = false;
@@ -215,7 +234,7 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                               });
                             },
                       child: const Text(
-                        "Submit",
+                        "Update",
                       ),
                     ),
                     20.verticalSpace,
@@ -229,17 +248,18 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
     );
   }
 
-  _customTextField({
-    required String labelName,
-    int? maxLines,
-    required TextEditingController textEditingController,
-    TextInputType? textInputType,
-    String? Function(String?)? validator,
-  }) {
+  _customTextField(
+      {required String labelName,
+      String? initialValue,
+      int? maxLines,
+      TextInputType? textInputType,
+      String? Function(String?)? validator,
+      void Function(String?)? onSaved}) {
     return TextFormField(
       validator: validator,
+      initialValue: initialValue,
       maxLines: maxLines,
-      controller: textEditingController,
+      onSaved: onSaved,
       keyboardType: textInputType,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
