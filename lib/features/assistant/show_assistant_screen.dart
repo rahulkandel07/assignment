@@ -52,14 +52,50 @@ class _ShowAssistantScreenState extends State<ShowAssistantScreen> {
                             child: ListView.builder(
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onLongPress: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          UpdateAssistantScreen(
-                                        assistant: snapshot.data![index],
+                                  onLongPress: () async {
+                                    await Navigator.of(context)
+                                        .push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UpdateAssistantScreen(
+                                          assistant: snapshot.data![index],
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    )
+                                        .whenComplete(() {
+                                      setState(() {});
+                                    });
+                                  },
+                                  onDoubleTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text(
+                                            "Are you sure want to delete?"),
+                                        content: const Text(
+                                            "This action is irreverssible. Once you delete this your request will be deleted."),
+                                        actions: [
+                                          FilledButton.tonal(
+                                            onPressed: () async {
+                                              FirebaseDatabase()
+                                                  .deleteDonation(snapshot
+                                                      .data![index].docsId!)
+                                                  .whenComplete(() {
+                                                setState(() {});
+                                              });
+                                            },
+                                            child: const Text("Yes"),
+                                          ),
+                                          20.horizontalSpace,
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text("No"),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                   child: requestCardDesign(
                                     assistant: snapshot.data![index],
                                   ),

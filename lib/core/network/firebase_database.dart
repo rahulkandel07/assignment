@@ -38,6 +38,18 @@ class FirebaseDatabase {
     }
   }
 
+  Future<void> deleteDonation(String id) async {
+    try {
+      final ref = _firebaseFirestore.collection("donation");
+      await ref.doc(id).delete();
+
+      Navigator.of(navigatorKey.currentContext!).pop();
+      successToast(title: "Donation deleted successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
+
   Future<List<Assistant>> getUserDonationList() async {
     List<Assistant> assistant = [];
     try {
