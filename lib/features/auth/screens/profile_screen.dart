@@ -19,9 +19,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   getUserProfileInfo() async {
     Users? users = await Auth().returnUserData();
 
-    setState(() {
-      user = users;
-    });
+    if (users != null) {
+      setState(() {
+        user = users;
+      });
+    }
   }
 
   @override
@@ -97,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   20.verticalSpace,
-                  if (user!.role == "admin") ...[
+                  if (user != null && user!.role == "admin") ...[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,

@@ -32,7 +32,8 @@ class Auth {
           _firebaseFirestore.collection("users").doc(value.user!.uid).set(data);
         }
       });
-
+      Navigator.of(navigatorKey.currentContext!)
+          .pushReplacementNamed(AppRoutes.profileScreen);
       successToast(title: "Register successfully");
     } catch (e) {
       errorToast(title: e.toString());
