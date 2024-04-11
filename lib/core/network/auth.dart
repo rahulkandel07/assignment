@@ -22,6 +22,7 @@ class Auth {
       "email": email,
       "address": address,
       "phone": phone,
+      "role": "user",
     };
     try {
       await _firebaseAuth

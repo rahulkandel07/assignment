@@ -58,4 +58,9 @@ class AppRoutes {
   /// Routes for Update Profile screen
   ///
   static const String myRequestScreen = "/my-request-screen";
+
+  ///
+  /// Routes forshow all donation request
+  ///
+  static const String showAllDonationRequest = "/show-all-donation-screen";
 }

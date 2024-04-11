@@ -7,6 +7,7 @@ class Users {
   final String email;
   final String address;
   final String phone;
+  final String? role;
 
   Users({
     required this.address,
@@ -14,6 +15,7 @@ class Users {
     required this.firstName,
     required this.lastName,
     required this.phone,
+    this.role,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,6 +35,7 @@ class Users {
       email: map['email'] as String,
       address: map['address'] as String,
       phone: map['phone'] as String,
+      role: map['role'].toString(),
     );
   }
 

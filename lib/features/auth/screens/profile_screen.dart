@@ -97,44 +97,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   20.verticalSpace,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      fixedSize: Size(250.w, 20.h),
+                  if (user!.role == "admin") ...[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.showAllDonationRequest),
+                      child: const Text(
+                        "View All Requests",
+                      ),
                     ),
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(AppRoutes.updateProfileScreen),
-                    child: const Text(
-                      "Update",
+                  ] else ...[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.updateProfileScreen),
+                      child: const Text(
+                        "Update",
+                      ),
                     ),
-                  ),
-                  20.verticalSpace,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      fixedSize: Size(250.w, 20.h),
+                    20.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.requestDonationScreen),
+                      child: const Text(
+                        "Request Donation",
+                      ),
                     ),
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(AppRoutes.requestDonationScreen),
-                    child: const Text(
-                      "Request Donation",
+                    20.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.myRequestScreen),
+                      child: const Text(
+                        "My Requests",
+                      ),
                     ),
-                  ),
-                  20.verticalSpace,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      fixedSize: Size(250.w, 20.h),
-                    ),
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(AppRoutes.myRequestScreen),
-                    child: const Text(
-                      "My Requests",
-                    ),
-                  ),
+                  ],
                   20.verticalSpace,
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(

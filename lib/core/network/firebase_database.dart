@@ -38,6 +38,17 @@ class FirebaseDatabase {
     }
   }
 
+  Future<void> acceptDonation(Map<String, dynamic> data, String id) async {
+    try {
+      final ref = _firebaseFirestore.collection("donation");
+      await ref.doc(id).update(data);
+
+      successToast(title: "Donation accepted successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
+
   Future<void> deleteDonation(String id) async {
     try {
       final ref = _firebaseFirestore.collection("donation");
@@ -57,6 +68,25 @@ class FirebaseDatabase {
       final results = await ref
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
+      for (var element in results.docs) {
+        final assis = element.data();
+        final Map<String, dynamic> d = {'docsId': element.id};
+        assis.addEntries(d.entries);
+        assistant.add(Assistant.fromMap(assis));
+      }
+
+      return assistant;
+    } catch (e) {
+      errorToast(title: e.toString());
+      return assistant;
+    }
+  }
+
+  Future<List<Assistant>> showAllDonation() async {
+    List<Assistant> assistant = [];
+    try {
+      final ref = _firebaseFirestore.collection("donation");
+      final results = await ref.get();
       for (var element in results.docs) {
         final assis = element.data();
         final Map<String, dynamic> d = {'docsId': element.id};
