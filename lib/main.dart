@@ -11,6 +11,7 @@ import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dar
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
 import 'package:assignment/features/homepage/screens/what_we_do_screen.dart';
+import 'package:assignment/features/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
             useMaterial3: true,
           ),
-          home: const LoginScreen(),
+          home: const SplashScreen(),
           routes: {
             AppRoutes.exploreSouthLakeScreen: (ctx) => ExploreSouthlakeScreen(),
             AppRoutes.whatWeDoScreenRoute: (ctx) => const WhatWeDoScreen(),

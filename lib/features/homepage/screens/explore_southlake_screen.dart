@@ -64,6 +64,12 @@ class ExploreSouthlakeScreen extends StatelessWidget {
       "route": AppRoutes.exploreSouthLakeScreen,
       "color": AppColors.oxff13AF05,
     },
+    {
+      "image": AppImages.persons,
+      "title": "Profile",
+      "route": AppRoutes.loginRoute,
+      "color": AppColors.oxff13AF05,
+    },
   ];
 
   _openGoogleMapLocation() async {

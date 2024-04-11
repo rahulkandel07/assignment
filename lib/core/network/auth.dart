@@ -53,6 +53,19 @@ class Auth {
     }
   }
 
+  logout() async {
+    try {
+      await _firebaseAuth.signOut();
+      Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil(
+        AppRoutes.exploreSouthLakeScreen,
+        (route) => false,
+      );
+      successToast(title: "Logout successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
+
   Future<Users?> returnUserData() async {
     try {
       CollectionReference ref = _firebaseFirestore.collection('users');

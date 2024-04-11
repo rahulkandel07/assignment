@@ -135,6 +135,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       "My Requests",
                     ),
                   ),
+                  20.verticalSpace,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(250.w, 20.h),
+                    ),
+                    onPressed: () => Auth().logout(),
+                    child: const Text(
+                      "Logout",
+                    ),
+                  ),
                 ],
               ),
             )
