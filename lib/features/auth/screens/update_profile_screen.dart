@@ -117,7 +117,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   _customTextField({required String labelName, required String initialValue}) {
-    print(initialValue);
     return TextFormField(
       initialValue: initialValue,
       decoration: InputDecoration(
