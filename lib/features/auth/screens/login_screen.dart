@@ -2,6 +2,7 @@ import 'package:assignment/constants/app_colors.dart';
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/core/network/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,10 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                       child: Text(
                         "Login",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontWeight: FontWeight.w700),
+                        style: kIsWeb
+                            ? Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(fontWeight: FontWeight.w700)
+                            : Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
                     20.verticalSpace,
@@ -106,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: Text(
                           "Email Address",
                           style: GoogleFonts.roboto(
-                            fontSize: 14.sp,
+                            fontSize: kIsWeb ? 5.sp : 14.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
                           ),
@@ -155,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: Text(
                           "Password",
                           style: GoogleFonts.roboto(
-                            fontSize: 14.sp,
+                            fontSize: kIsWeb ? 5.sp : 14.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
                           ),
@@ -168,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: AppColors.oxff13AF05,
                         foregroundColor: Colors.white,
                         elevation: 5,
-                        fixedSize: Size(250.w, 20.h),
+                        fixedSize: Size(250.w, kIsWeb ? 40.h : 20.h),
                       ),
                       onPressed: () {
                         _loginkey.currentState!.save();
@@ -191,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: TextSpan(
                             text: "Don't have any account? ",
                             style: GoogleFonts.roboto(
-                              fontSize: 14.sp,
+                              fontSize: kIsWeb ? 5.sp : 14.sp,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
                             ),
