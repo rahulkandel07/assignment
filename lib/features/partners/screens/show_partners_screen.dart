@@ -146,7 +146,6 @@ class _ShowPartnerScreenState extends State<ShowPartnerScreen> {
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height,
                               child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -186,10 +185,7 @@ class _ShowPartnerScreenState extends State<ShowPartnerScreen> {
                                       );
                                     },
                                     child: Image.network(
-                                      snapshot.data![index].imageUrl
-                                          .replaceAll("%20", ''),
-                                      height: 100.h,
-                                      width: 100.w,
+                                      snapshot.data![index].imageUrl,
                                     ),
                                   );
                                 },
@@ -205,6 +201,7 @@ class _ShowPartnerScreenState extends State<ShowPartnerScreen> {
                       }
                     },
                   ),
+                  20.verticalSpace,
                 ],
               ),
             )
