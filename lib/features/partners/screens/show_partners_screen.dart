@@ -141,54 +141,60 @@ class _ShowPartnerScreenState extends State<ShowPartnerScreen> {
                             child: Text("You have 0 partners"),
                           );
                         } else {
-                          return SizedBox(
-                            height: 500.h,
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              child: GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onDoubleTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text(
+                                              "Are you sure want to delete?"),
+                                          content: const Text(
+                                              "This action is irreverssible. Once you delete this logo it will be deleted."),
+                                          actions: [
+                                            FilledButton.tonal(
+                                              onPressed: () async {
+                                                FirebaseDatabase()
+                                                    .deletePartner(snapshot
+                                                        .data![index].id)
+                                                    .whenComplete(() {
+                                                  setState(() {});
+                                                });
+                                              },
+                                              child: const Text("Yes"),
+                                            ),
+                                            20.horizontalSpace,
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: const Text("No"),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    child: Image.network(
+                                      snapshot.data![index].imageUrl
+                                          .replaceAll("%20", ''),
+                                      height: 100.h,
+                                      width: 100.w,
+                                    ),
+                                  );
+                                },
+                                itemCount: snapshot.data!.length,
                               ),
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onDoubleTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text(
-                                            "Are you sure want to delete?"),
-                                        content: const Text(
-                                            "This action is irreverssible. Once you delete this logo it will be deleted."),
-                                        actions: [
-                                          FilledButton.tonal(
-                                            onPressed: () async {
-                                              FirebaseDatabase()
-                                                  .deletePartner(
-                                                      snapshot.data![index].id)
-                                                  .whenComplete(() {
-                                                setState(() {});
-                                              });
-                                            },
-                                            child: const Text("Yes"),
-                                          ),
-                                          20.horizontalSpace,
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: const Text("No"),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  child: Image.network(
-                                    snapshot.data![index].imageUrl
-                                        .replaceAll("%20", ''),
-                                    height: 100.h,
-                                    width: 100.w,
-                                  ),
-                                );
-                              },
-                              itemCount: snapshot.data!.length,
                             ),
                           );
                         }
