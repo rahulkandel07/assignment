@@ -68,4 +68,9 @@ class AppRoutes {
   /// Routes for show all partners
   ///
   static const String showAllPartner = "/show-all-partner-screen";
+
+  ///
+  /// Routes for showing the contact us query
+  ///
+  static const String contactUsQuery = "/contact-us-query-screen";
 }

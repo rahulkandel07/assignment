@@ -1,4 +1,5 @@
 import 'package:assignment/constants/app_routes.dart';
+import 'package:assignment/features/admin/screens/contact_us_query_screen.dart';
 import 'package:assignment/features/assistant/assistant_form_screen.dart';
 import 'package:assignment/features/assistant/show_all_donation_screen.dart';
 import 'package:assignment/features/assistant/show_assistant_screen.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.updateProfileScreen: (ctx) => const UpdateProfileScreen(),
             AppRoutes.myRequestScreen: (ctx) => const ShowAssistantScreen(),
             AppRoutes.showAllPartner: (ctx) => const ShowPartnerScreen(),
+            AppRoutes.contactUsQuery: (ctx) => const ContactUsQueryScreen(),
             AppRoutes.showAllDonationRequest: (ctx) =>
                 const ShowAllDonationRequest(),
           },

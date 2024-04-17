@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:assignment/core/utils/toast.dart';
+import 'package:assignment/features/admin/models/contact_us.dart';
 import 'package:assignment/features/assistant/mode/assistant.dart';
 import 'package:assignment/features/partners/models/partner.dart';
 import 'package:assignment/main.dart';
@@ -15,6 +16,7 @@ import 'package:image_picker/image_picker.dart';
 class FirebaseDatabase {
   final _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
+
   Future<void> submitContactUs(Map<String, dynamic> data) async {
     try {
       await _firebaseFirestore.collection("contact").add(data);
@@ -163,6 +165,26 @@ class FirebaseDatabase {
     } catch (e) {
       errorToast(title: e.toString());
       return partner;
+    }
+  }
+
+  // * Fetch all the contact us query
+  Future<List<ContactUs>> fetchAllContactUsQuery() async {
+    List<ContactUs> contactUs = [];
+    try {
+      final ref = _firebaseFirestore.collection("contact");
+      final results = await ref.get();
+      for (var element in results.docs) {
+        final assis = element.data();
+        final Map<String, dynamic> d = {'docsId': element.id};
+        assis.addEntries(d.entries);
+        contactUs.add(ContactUs.fromMap(assis));
+      }
+
+      return contactUs;
+    } catch (e) {
+      errorToast(title: e.toString());
+      return contactUs;
     }
   }
 

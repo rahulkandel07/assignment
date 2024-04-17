@@ -125,6 +125,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Partners",
                       ),
                     ),
+                    20.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.contactUsQuery),
+                      child: const Text(
+                        "Contact Us Query",
+                      ),
+                    ),
                   ] else ...[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
