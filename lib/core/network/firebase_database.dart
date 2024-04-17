@@ -199,4 +199,16 @@ class FirebaseDatabase {
       errorToast(title: e.toString());
     }
   }
+
+  Future<void> deleteContactUs(String id) async {
+    try {
+      final ref = _firebaseFirestore.collection("contact");
+      await ref.doc(id).delete();
+
+      Navigator.of(navigatorKey.currentContext!).pop();
+      successToast(title: "Delete contact us query successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
 }

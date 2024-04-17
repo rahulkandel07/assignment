@@ -6,9 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/network/firebase_database.dart';
 
-class ContactUsQueryScreen extends StatelessWidget {
+class ContactUsQueryScreen extends StatefulWidget {
   const ContactUsQueryScreen({super.key});
 
+  @override
+  State<ContactUsQueryScreen> createState() => _ContactUsQueryScreenState();
+}
+
+class _ContactUsQueryScreenState extends State<ContactUsQueryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +51,40 @@ class ContactUsQueryScreen extends StatelessWidget {
                         height: 500.h,
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            return contactUsCard(
-                              contactUs: snapshot.data![index],
+                            return GestureDetector(
+                              onDoubleTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(
+                                        "Are you sure want to delete?"),
+                                    content: const Text(
+                                        "This action is irreverssible. Once you delete this contact us query will be deleted."),
+                                    actions: [
+                                      FilledButton.tonal(
+                                        onPressed: () async {
+                                          FirebaseDatabase()
+                                              .deleteContactUs(
+                                                  snapshot.data![index].docsId)
+                                              .whenComplete(() {
+                                            setState(() {});
+                                          });
+                                        },
+                                        child: const Text("Yes"),
+                                      ),
+                                      20.horizontalSpace,
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        child: const Text("No"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: contactUsCard(
+                                contactUs: snapshot.data![index],
+                              ),
                             );
                           },
                           itemCount: snapshot.data!.length,
