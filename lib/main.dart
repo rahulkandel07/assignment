@@ -12,6 +12,7 @@ import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dar
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
 import 'package:assignment/features/homepage/screens/what_we_do_screen.dart';
+import 'package:assignment/features/partners/screens/show_partners_screen.dart';
 import 'package:assignment/features/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
                 const AssistantFormScreen(),
             AppRoutes.updateProfileScreen: (ctx) => const UpdateProfileScreen(),
             AppRoutes.myRequestScreen: (ctx) => const ShowAssistantScreen(),
+            AppRoutes.showAllPartner: (ctx) => const ShowPartnerScreen(),
             AppRoutes.showAllDonationRequest: (ctx) =>
                 const ShowAllDonationRequest(),
           },

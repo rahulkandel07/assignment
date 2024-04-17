@@ -63,4 +63,9 @@ class AppRoutes {
   /// Routes forshow all donation request
   ///
   static const String showAllDonationRequest = "/show-all-donation-screen";
+
+  ///
+  /// Routes for show all partners
+  ///
+  static const String showAllPartner = "/show-all-partner-screen";
 }

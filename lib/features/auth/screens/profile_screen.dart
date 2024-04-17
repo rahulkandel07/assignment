@@ -112,6 +112,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "View All Requests",
                       ),
                     ),
+                    20.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.showAllPartner),
+                      child: const Text(
+                        "Partners",
+                      ),
+                    ),
                   ] else ...[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
