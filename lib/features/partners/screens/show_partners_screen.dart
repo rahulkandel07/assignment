@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../core/utils/toast.dart';
+
 class ShowPartnerScreen extends StatefulWidget {
   const ShowPartnerScreen({super.key});
 
@@ -77,6 +79,10 @@ class _ShowPartnerScreenState extends State<ShowPartnerScreen> {
                         children: [
                           FilledButton.tonal(
                             onPressed: () async {
+                              if (image == null) {
+                                errorToast(title: "Please select the image");
+                                return;
+                              }
                               await FirebaseDatabase()
                                   .saveThePartnerLogo(image)
                                   .whenComplete(() {

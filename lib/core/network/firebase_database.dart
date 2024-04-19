@@ -4,6 +4,7 @@ import 'package:assignment/core/utils/toast.dart';
 import 'package:assignment/features/admin/models/contact_us.dart';
 import 'package:assignment/features/assistant/mode/assistant.dart';
 import 'package:assignment/features/partners/models/partner.dart';
+import 'package:assignment/features/service/models/service.dart';
 import 'package:assignment/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -145,6 +146,49 @@ class FirebaseDatabase {
       successToast(title: "Partner Logo added successfully");
     } catch (e) {
       errorToast(title: e.toString());
+    }
+  }
+
+  // * Save the services to dataBase
+  Future<void> saveTheService(
+      {required XFile? image,
+      required String title,
+      required String message}) async {
+    try {
+      String imageUrl = await uploadPic(image);
+      if (imageUrl.isEmpty || imageUrl == '') {
+        return;
+      }
+      Map<String, dynamic> data = {
+        "image": imageUrl,
+        "title": title,
+        "message": message
+      };
+      await _firebaseFirestore.collection("service").add(data);
+      Navigator.of(navigatorKey.currentContext!).pop();
+      successToast(title: "Service added successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
+
+// * Fetch all the our works
+  Future<List<Service>> fetchAllService() async {
+    List<Service> service = [];
+    try {
+      final ref = _firebaseFirestore.collection("service");
+      final results = await ref.get();
+      for (var element in results.docs) {
+        final assis = element.data();
+        final Map<String, dynamic> d = {'docsId': element.id};
+        assis.addEntries(d.entries);
+        service.add(Service.fromMap(assis));
+      }
+
+      return service;
+    } catch (e) {
+      errorToast(title: e.toString());
+      return service;
     }
   }
 
