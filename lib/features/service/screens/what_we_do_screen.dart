@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:assignment/constants/app_colors.dart';
 import 'package:assignment/core/utils/custom_text_field.dart';
 import 'package:assignment/core/utils/toast.dart';
+import 'package:assignment/features/service/models/service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -173,15 +174,61 @@ class _WhatWeDoScreenState extends State<WhatWeDoScreen> {
                   ),
                 ),
               ),
-              Wrap(
-                children: [
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                ],
+              FutureBuilder(
+                future: FirebaseDatabase().fetchAllService(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text("Something went wrong");
+                  } else if (snapshot.hasData) {
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("You have 0 services"),
+                      );
+                    } else {
+                      return Wrap(
+                        children: snapshot.data!
+                            .map((e) => GestureDetector(
+                                onDoubleTap: isAdmin == true
+                                    ? () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text(
+                                                "Are you sure want to delete?"),
+                                            content: const Text(
+                                                "This action is irreverssible. Once you delete this logo it will be deleted."),
+                                            actions: [
+                                              FilledButton.tonal(
+                                                onPressed: () async {
+                                                  FirebaseDatabase()
+                                                      .deleteService(e.docsId)
+                                                      .whenComplete(() {
+                                                    setState(() {});
+                                                  });
+                                                },
+                                                child: const Text("Yes"),
+                                              ),
+                                              20.horizontalSpace,
+                                              TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                                child: const Text("No"),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                    : null,
+                                child: _buildCard(service: e)))
+                            .toList(),
+                      );
+                    }
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ],
           ),
@@ -190,7 +237,7 @@ class _WhatWeDoScreenState extends State<WhatWeDoScreen> {
     );
   }
 
-  _buildCard() {
+  Container _buildCard({required Service service}) {
     return Container(
       width: 150.w,
       margin: EdgeInsets.all(10.sp),
@@ -211,12 +258,12 @@ class _WhatWeDoScreenState extends State<WhatWeDoScreen> {
         children: [
           SizedBox(
             height: 100.h,
-            child: const Placeholder(),
+            child: Image.network(service.image),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 5.h),
             child: Text(
-              "Parnert Of Dress for Success",
+              service.title,
               style: GoogleFonts.robotoCondensed(
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w700,
@@ -225,7 +272,7 @@ class _WhatWeDoScreenState extends State<WhatWeDoScreen> {
             ),
           ),
           Text(
-            "We are a referral agency for pack and send. This is our way of supporting women in need of clothing for important life events.",
+            service.message,
             textAlign: TextAlign.justify,
             style: GoogleFonts.robotoCondensed(
                 fontSize: 10.sp,

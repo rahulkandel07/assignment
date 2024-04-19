@@ -244,6 +244,18 @@ class FirebaseDatabase {
     }
   }
 
+  Future<void> deleteService(String id) async {
+    try {
+      final ref = _firebaseFirestore.collection("service");
+      await ref.doc(id).delete();
+
+      Navigator.of(navigatorKey.currentContext!).pop();
+      successToast(title: "service deleted successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
+
   Future<void> deleteContactUs(String id) async {
     try {
       final ref = _firebaseFirestore.collection("contact");
