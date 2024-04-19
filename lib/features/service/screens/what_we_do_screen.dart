@@ -203,7 +203,12 @@ class _WhatWeDoScreenState extends State<WhatWeDoScreen> {
                                                   FirebaseDatabase()
                                                       .deleteService(e.docsId)
                                                       .whenComplete(() {
-                                                    setState(() {});
+                                                    setState(() {
+                                                      _titleController.clear();
+                                                      _messageController
+                                                          .clear();
+                                                      image = null;
+                                                    });
                                                   });
                                                 },
                                                 child: const Text("Yes"),
