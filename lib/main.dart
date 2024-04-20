@@ -13,6 +13,7 @@ import 'package:assignment/features/homepage/screens/how_can_you_help_screen.dar
 import 'package:assignment/features/homepage/screens/our_impact_screen.dart';
 import 'package:assignment/features/homepage/screens/our_partner_screen.dart';
 import 'package:assignment/features/partners/screens/show_partners_screen.dart';
+import 'package:assignment/features/qrScanner/screens/qr_scanner_page.dart';
 import 'package:assignment/features/service/screens/what_we_do_screen.dart';
 import 'package:assignment/features/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.getInTouchScreenRoute: (ctx) => const GetInTouchScreen(),
             AppRoutes.loginRoute: (ctx) => const LoginScreen(),
             AppRoutes.registerScreen: (ctx) => const RegisterScreen(),
+            AppRoutes.qrScannerPage: (ctx) => const QrScannerPage(),
             AppRoutes.profileScreen: (ctx) => const ProfileScreen(),
             AppRoutes.requestDonationScreen: (ctx) =>
                 const AssistantFormScreen(),

@@ -112,7 +112,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "View All Requests",
                       ),
                     ),
-                    20.verticalSpace,
+                    10.verticalSpace,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        fixedSize: Size(250.w, 20.h),
+                      ),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.qrScannerPage),
+                      child: const Text(
+                        "Scan QR",
+                      ),
+                    ),
+                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -125,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Partners",
                       ),
                     ),
-                    20.verticalSpace,
+                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -139,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Our work",
                       ),
                     ),
-                    20.verticalSpace,
+                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -165,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Update",
                       ),
                     ),
-                    20.verticalSpace,
+                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -178,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Request Donation",
                       ),
                     ),
-                    20.verticalSpace,
+                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -192,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ],
-                  20.verticalSpace,
+                  10.verticalSpace,
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

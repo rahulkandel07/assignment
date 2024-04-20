@@ -73,4 +73,9 @@ class AppRoutes {
   /// Routes for showing the contact us query
   ///
   static const String contactUsQuery = "/contact-us-query-screen";
+
+  ///
+  /// Routes for showing the QR Scanner Page
+  ///
+  static const String qrScannerPage = "/qr-scanner-page";
 }
