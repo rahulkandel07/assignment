@@ -1,5 +1,6 @@
 import 'package:assignment/constants/app_colors.dart';
 import 'package:assignment/constants/app_routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -162,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: AppColors.oxff13AF05,
                         foregroundColor: Colors.white,
                         elevation: 5,
-                        fixedSize: Size(250.w, 20.h),
+                        fixedSize: Size(250.w, kIsWeb ? 40.h : 20.h),
                       ),
                       onPressed: () {
                         _registerKey.currentState!.save();
@@ -258,7 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         label: Text(
           labelName,
           style: GoogleFonts.roboto(
-            fontSize: 14.sp,
+            fontSize: kIsWeb ? 5.sp : 14.sp,
             fontWeight: FontWeight.w400,
             color: Colors.black,
           ),
