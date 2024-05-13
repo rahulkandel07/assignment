@@ -95,7 +95,7 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
                         if (date != null) {
                           setState(() {
                             dateController.text =
-                                "${date.year}-${date.month}-${date.day}";
+                                "${date.day}/${date.month}/${date.year}";
                           });
                         }
                       },

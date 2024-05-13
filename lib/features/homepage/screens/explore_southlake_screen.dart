@@ -46,12 +46,12 @@ class ExploreSouthlakeScreen extends StatelessWidget {
       "route": AppRoutes.getInTouchScreenRoute,
       "color": AppColors.oxffEECF27,
     },
-    {
-      "image": AppImages.dimond,
-      "title": "Awards",
-      "route": AppRoutes.exploreSouthLakeScreen,
-      "color": AppColors.oxff38BC85,
-    },
+    // {
+    //   "image": AppImages.dimond,
+    //   "title": "Awards",
+    //   "route": AppRoutes.exploreSouthLakeScreen,
+    //   "color": AppColors.oxff38BC85,
+    // },
     {
       "image": AppImages.location,
       "title": "Location",
@@ -79,6 +79,16 @@ class ExploreSouthlakeScreen extends StatelessWidget {
       mode: LaunchMode.externalApplication,
     )) {
       throw Exception('Could not open google maps');
+    }
+  }
+
+  _openCommunityHairProject() async {
+    print("launched");
+    if (!await launchUrl(
+      Uri.parse("https://www.instagram.com/communityhairproject_/"),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not open communtiy hair instagram ');
     }
   }
 
@@ -193,9 +203,15 @@ class ExploreSouthlakeScreen extends StatelessWidget {
   _buildInfoCard(
       {required Map<String, dynamic> item, required BuildContext context}) {
     return GestureDetector(
-      onTap: () => item["title"] == "Location"
-          ? _openGoogleMapLocation()
-          : Navigator.of(context).pushNamed(item["route"]),
+      onTap: () {
+        if (item["title"] == "Location") {
+          _openGoogleMapLocation();
+        } else if (item["title"] == "Community Hair Project") {
+          _openCommunityHairProject();
+        } else {
+          Navigator.of(context).pushNamed(item["route"]);
+        }
+      },
       child: Container(
         width: 83.w,
         height: 80.h,

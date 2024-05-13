@@ -113,18 +113,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     10.verticalSpace,
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        fixedSize: Size(250.w, 20.h),
-                      ),
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(AppRoutes.qrScannerPage),
-                      child: const Text(
-                        "Scan QR",
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.green,
+                    //     foregroundColor: Colors.white,
+                    //     fixedSize: Size(250.w, 20.h),
+                    //   ),
+                    //   onPressed: () => Navigator.of(context)
+                    //       .pushNamed(AppRoutes.qrScannerPage),
+                    //   child: const Text(
+                    //     "Scan QR",
+                    //   ),
+                    // ),
                     10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -139,19 +139,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     10.verticalSpace,
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        fixedSize: Size(250.w, 20.h),
-                      ),
-                      onPressed: () => Navigator.of(context).pushNamed(
-                          AppRoutes.whatWeDoScreenRoute,
-                          arguments: true),
-                      child: const Text(
-                        "Our work",
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.green,
+                    //     foregroundColor: Colors.white,
+                    //     fixedSize: Size(250.w, 20.h),
+                    //   ),
+                    //   onPressed: () => Navigator.of(context).pushNamed(
+                    //       AppRoutes.whatWeDoScreenRoute,
+                    //       arguments: true),
+                    //   child: const Text(
+                    //     "Our work",
+                    //   ),
+                    // ),
                     10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
