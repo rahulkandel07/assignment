@@ -86,4 +86,16 @@ class Auth {
     }
     return null;
   }
+
+  Future<void> updateUser(Map<String, dynamic> data) async {
+    try {
+      CollectionReference ref = _firebaseFirestore.collection('users');
+
+      await ref.doc(_firebaseAuth.currentUser!.uid).update(data);
+      Navigator.of(navigatorKey.currentContext!).pop();
+      successToast(title: "Profile updated successfully");
+    } catch (e) {
+      errorToast(title: e.toString());
+    }
+  }
 }

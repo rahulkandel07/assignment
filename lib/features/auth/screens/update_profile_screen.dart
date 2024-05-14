@@ -14,24 +14,28 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  String? firstName;
-  String? lastName;
-  String? emailAddress;
-  String? phoneNumber;
-  String? address;
+  late String firstName;
+  late String lastName;
+  late String emailAddress;
+  late String phoneNumber;
+  late String address;
+
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailAddressController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
   getUserProfileInfo() async {
     Users? users = await Auth().returnUserData();
 
-    if (users != null) {
-      setState(() {
-        firstName = users.firstName;
-        lastName = users.lastName;
-        emailAddress = users.email;
-        phoneNumber = users.phone;
-        address = users.address;
-      });
-    }
+    setState(() {
+      firstName = users!.firstName;
+      lastName = users.lastName;
+      emailAddress = users.email;
+      phoneNumber = users.phone;
+      address = users.address;
+    });
   }
 
   final GlobalKey<FormState> _profileUpdateKey = GlobalKey<FormState>();
@@ -40,6 +44,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   void initState() {
     super.initState();
     getUserProfileInfo();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailAddressController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
   }
 
   @override
@@ -70,27 +84,42 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     20.verticalSpace,
                     _customTextField(
                       labelName: "First Name",
-                      initialValue: firstName ?? "",
+                      initialValue: firstName,
+                      onSave: (value) {
+                        firstNameController.text = value!;
+                      },
                     ),
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Last Name",
-                      initialValue: lastName ?? "",
+                      initialValue: lastName,
+                      onSave: (value) {
+                        lastNameController.text = value!;
+                      },
                     ),
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Email Address",
-                      initialValue: emailAddress ?? "",
+                      initialValue: emailAddress,
+                      onSave: (value) {
+                        emailAddressController.text = value!;
+                      },
                     ),
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Phone Number",
-                      initialValue: phoneNumber ?? "",
+                      initialValue: phoneNumber,
+                      onSave: (value) {
+                        phoneNumberController.text = value!;
+                      },
                     ),
                     10.verticalSpace,
                     _customTextField(
                       labelName: "Address",
-                      initialValue: address ?? "",
+                      initialValue: address,
+                      onSave: (value) {
+                        addressController.text = value!;
+                      },
                     ),
                     20.verticalSpace,
                     ElevatedButton(
@@ -100,7 +129,22 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         elevation: 5,
                         fixedSize: Size(250.w, 20.h),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (!_profileUpdateKey.currentState!.validate()) {
+                          return;
+                        }
+                        _profileUpdateKey.currentState!.save();
+
+                        Map<String, dynamic> data = {
+                          'first': firstNameController.text,
+                          'last': lastNameController.text,
+                          'email': emailAddressController.text,
+                          'address': addressController.text,
+                          'phone': phoneNumberController.text,
+                        };
+
+                        await Auth().updateUser(data);
+                      },
                       child: const Text(
                         "Update",
                       ),
@@ -116,9 +160,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 
-  _customTextField({required String labelName, required String initialValue}) {
+  _customTextField({
+    required String labelName,
+    required String initialValue,
+    void Function(String?)? onSave,
+  }) {
     return TextFormField(
       initialValue: initialValue,
+      onSaved: onSave,
+      onTapOutside: (event) => FocusScope.of(context).requestFocus(FocusNode()),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),

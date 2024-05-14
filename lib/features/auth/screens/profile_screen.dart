@@ -99,6 +99,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   20.verticalSpace,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(250.w, 20.h),
+                    ),
+                    onPressed: () async {
+                      await Navigator.of(context)
+                          .pushNamed(AppRoutes.updateProfileScreen)
+                          .then((value) {
+                        setState(() {});
+                      });
+                    },
+                    child: const Text(
+                      "Update",
+                    ),
+                  ),
                   if (user != null && user!.role == "admin") ...[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -125,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //     "Scan QR",
                     //   ),
                     // ),
-                    10.verticalSpace,
+                    // 10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -138,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Partners",
                       ),
                     ),
-                    10.verticalSpace,
+                    // 10.verticalSpace,
                     // ElevatedButton(
                     //   style: ElevatedButton.styleFrom(
                     //     backgroundColor: Colors.green,
@@ -166,19 +183,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ] else ...[
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        fixedSize: Size(250.w, 20.h),
-                      ),
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(AppRoutes.updateProfileScreen),
-                      child: const Text(
-                        "Update",
-                      ),
-                    ),
-                    10.verticalSpace,
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
