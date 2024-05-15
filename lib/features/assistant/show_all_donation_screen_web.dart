@@ -1,22 +1,25 @@
+import 'dart:html' as html;
 import 'dart:io';
 
 import 'package:assignment/core/network/firebase_database.dart';
 import 'package:assignment/features/assistant/mode/assistant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as excel;
 
-class ShowAllDonationRequest extends StatefulWidget {
-  const ShowAllDonationRequest({super.key});
+class ShowAllDonationRequestWeb extends StatefulWidget {
+  const ShowAllDonationRequestWeb({super.key});
 
   @override
-  State<ShowAllDonationRequest> createState() => _ShowAllDonationRequestState();
+  State<ShowAllDonationRequestWeb> createState() =>
+      _ShowAllDonationRequestWebState();
 }
 
-class _ShowAllDonationRequestState extends State<ShowAllDonationRequest> {
+class _ShowAllDonationRequestWebState extends State<ShowAllDonationRequestWeb> {
   List<Map<String, dynamic>> data = [];
   final _firebaseFirestore = FirebaseFirestore.instance;
 
@@ -64,24 +67,29 @@ class _ShowAllDonationRequestState extends State<ShowAllDonationRequest> {
     final List<int> bytes = workbook.saveAsStream();
     workbook.dispose();
 
-    final String dir = (await getExternalStorageDirectory())!.path;
-    final String path = '$dir/dataa.xlsx';
-    final File file = File(path);
-    await file.writeAsBytes(bytes);
+    if (kIsWeb) {
+      // Convert bytes to Blob
+      final blob = html.Blob([Uint8List.fromList(bytes)],
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
-    print('Excel file saved: $path');
+      // Create an object URL
+      final url = html.Url.createObjectUrlFromBlob(blob);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Excel file saved: $path'),
-        action: SnackBarAction(
-          label: 'Open file',
-          onPressed: () {
-            OpenFile.open(path);
-          },
-        ),
-      ),
-    );
+      // Create a link element
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute("download", "dataa.xlsx")
+        ..click(); // Simulate a click to trigger the download
+
+      // Revoke the object URL
+      html.Url.revokeObjectUrl(url);
+    } else {
+      final String dir = (await getDownloadsDirectory())!.path;
+      final String path = '$dir/dataa.xlsx';
+      final File file = File(path);
+      await file.writeAsBytes(bytes);
+
+      print('Excel file saved: $path');
+    }
   }
 
   @override

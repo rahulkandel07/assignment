@@ -1,6 +1,7 @@
 import 'package:assignment/constants/app_routes.dart';
 import 'package:assignment/core/utils/custom_text_field.dart';
 import 'package:assignment/features/auth/model/users.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -123,8 +124,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         foregroundColor: Colors.white,
                         fixedSize: Size(250.w, 20.h),
                       ),
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(AppRoutes.showAllDonationRequest),
+                      onPressed: () {
+                        if (kIsWeb) {
+                          Navigator.of(context)
+                              .pushNamed(AppRoutes.showAllDonationRequestWeb);
+                        } else {
+                          Navigator.of(context)
+                              .pushNamed(AppRoutes.showAllDonationRequest);
+                        }
+                      },
                       child: const Text(
                         "View All Requests",
                       ),
