@@ -73,8 +73,6 @@ class MyApp extends StatelessWidget {
             AppRoutes.contactUsQuery: (ctx) => const ContactUsQueryScreen(),
             AppRoutes.showAllDonationRequest: (ctx) =>
                 const ShowAllDonationRequest(),
-            AppRoutes.showAllDonationRequestWeb: (ctx) =>
-                const ShowAllDonationRequestWeb(),
           },
         );
       },
