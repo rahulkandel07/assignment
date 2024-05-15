@@ -1,7 +1,15 @@
+import 'dart:html' as html;
+import 'dart:io';
+
 import 'package:assignment/core/network/firebase_database.dart';
 import 'package:assignment/features/assistant/mode/assistant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as excel;
 
 class ShowAllDonationRequest extends StatefulWidget {
   const ShowAllDonationRequest({super.key});
@@ -11,9 +19,85 @@ class ShowAllDonationRequest extends StatefulWidget {
 }
 
 class _ShowAllDonationRequestState extends State<ShowAllDonationRequest> {
+  List<Map<String, dynamic>> data = [];
+  final _firebaseFirestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDataFromFirestore();
+  }
+
+  Future<void> fetchDataFromFirestore() async {
+    var snapshot = await _firebaseFirestore.collection("donation").get();
+    setState(() {
+      data = snapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  Future<void> exportToExcel() async {
+    // final ExcelEngine excelEngine = ExcelEngine();
+    final excel.Workbook workbook = excel.Workbook();
+    final excel.Worksheet sheet = workbook.worksheets[0];
+
+    // Add headers
+    sheet.getRangeByName('A1').setText('User ID');
+    sheet.getRangeByName('B1').setText('Members');
+    sheet.getRangeByName('C1').setText('Date');
+    sheet.getRangeByName('D1').setText('Notes');
+    sheet.getRangeByName('E1').setText('Subrub');
+    sheet.getRangeByName('F1').setText('Hampers');
+    sheet.getRangeByName('G1').setText('Status');
+
+    // Add data rows
+    for (int i = 0; i < data.length; i++) {
+      final row = data[i];
+      print(row.toString());
+      sheet.getRangeByIndex(i + 2, 1).setText(row['userId']);
+      sheet.getRangeByIndex(i + 2, 2).setText(row['members']);
+      sheet.getRangeByIndex(i + 2, 3).setText(row['date']);
+      sheet.getRangeByIndex(i + 2, 4).setText(row['notes']);
+      sheet.getRangeByIndex(i + 2, 5).setText(row['subrub']);
+      sheet.getRangeByIndex(i + 2, 6).setText(row['hampers']);
+      sheet.getRangeByIndex(i + 2, 7).setText(row['status']);
+    }
+
+    // Save the Excel file
+    final List<int> bytes = workbook.saveAsStream();
+    workbook.dispose();
+
+    if (kIsWeb) {
+      // Convert bytes to Blob
+      final blob = html.Blob([Uint8List.fromList(bytes)],
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+      // Create an object URL
+      final url = html.Url.createObjectUrlFromBlob(blob);
+
+      // Create a link element
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute("download", "dataa.xlsx")
+        ..click(); // Simulate a click to trigger the download
+
+      // Revoke the object URL
+      html.Url.revokeObjectUrl(url);
+    } else {
+      final String dir = (await getDownloadsDirectory())!.path;
+      final String path = '$dir/dataa.xlsx';
+      final File file = File(path);
+      await file.writeAsBytes(bytes);
+
+      print('Excel file saved: $path');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FilledButton.tonal(
+        onPressed: exportToExcel,
+        child: const Text("Export to Excel"),
+      ),
       body: SafeArea(
         child: ListView(
           children: [
