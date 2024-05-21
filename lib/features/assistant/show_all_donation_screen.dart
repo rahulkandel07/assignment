@@ -43,24 +43,26 @@ class _ShowAllDonationRequestState extends State<ShowAllDonationRequest> {
 
     // Add headers
     sheet.getRangeByName('A1').setText('User ID');
-    sheet.getRangeByName('B1').setText('Members');
-    sheet.getRangeByName('C1').setText('Date');
-    sheet.getRangeByName('D1').setText('Notes');
-    sheet.getRangeByName('E1').setText('Subrub');
-    sheet.getRangeByName('F1').setText('Hampers');
-    sheet.getRangeByName('G1').setText('Status');
+    sheet.getRangeByName('B1').setText('User Name');
+    sheet.getRangeByName('C1').setText('Members');
+    sheet.getRangeByName('D1').setText('Date');
+    sheet.getRangeByName('E1').setText('Notes');
+    sheet.getRangeByName('F1').setText('Subrub');
+    sheet.getRangeByName('G1').setText('Hampers');
+    sheet.getRangeByName('H1').setText('Status');
 
     // Add data rows
     for (int i = 0; i < data.length; i++) {
       final row = data[i];
       print(row.toString());
       sheet.getRangeByIndex(i + 2, 1).setText(row['userId']);
-      sheet.getRangeByIndex(i + 2, 2).setText(row['members']);
-      sheet.getRangeByIndex(i + 2, 3).setText(row['date']);
-      sheet.getRangeByIndex(i + 2, 4).setText(row['notes']);
-      sheet.getRangeByIndex(i + 2, 5).setText(row['subrub']);
-      sheet.getRangeByIndex(i + 2, 6).setText(row['hampers']);
-      sheet.getRangeByIndex(i + 2, 7).setText(row['status']);
+      sheet.getRangeByIndex(i + 2, 2).setText(row['userName']);
+      sheet.getRangeByIndex(i + 2, 3).setText(row['members']);
+      sheet.getRangeByIndex(i + 2, 4).setText(row['date']);
+      sheet.getRangeByIndex(i + 2, 5).setText(row['notes']);
+      sheet.getRangeByIndex(i + 2, 6).setText(row['subrub']);
+      sheet.getRangeByIndex(i + 2, 7).setText(row['hampers']);
+      sheet.getRangeByIndex(i + 2, 8).setText(row['status']);
     }
 
     // Save the Excel file
