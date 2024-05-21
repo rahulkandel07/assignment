@@ -3,6 +3,7 @@ import 'dart:convert';
 
 class Assistant {
   final String userId;
+  final String? userName;
   final String members;
   final String date;
   final String notes;
@@ -12,6 +13,7 @@ class Assistant {
   final String? docsId;
 
   Assistant({
+    this.userName,
     required this.userId,
     required this.date,
     required this.hampers,
@@ -25,6 +27,7 @@ class Assistant {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'userId': userId,
+      'userName': userName,
       'members': members,
       'date': date,
       'notes': notes,
@@ -37,6 +40,7 @@ class Assistant {
   factory Assistant.fromMap(Map<String, dynamic> map) {
     return Assistant(
       userId: map['userId'] as String,
+      userName: map['userName'] as String,
       members: map['members'] as String,
       date: map['date'] as String,
       notes: map['notes'] as String,

@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/network/auth.dart';
+import '../auth/model/users.dart';
+
 class AssistantFormScreen extends StatefulWidget {
   const AssistantFormScreen({super.key});
 
@@ -26,6 +29,24 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
 
   // * For Processing
   bool isProcessing = false;
+
+  Users? user;
+
+  getUserProfileInfo() async {
+    Users? users = await Auth().returnUserData();
+
+    if (users != null) {
+      setState(() {
+        user = users;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserProfileInfo();
+  }
 
   @override
   void dispose() {
@@ -198,6 +219,7 @@ class _AssistantFormScreenState extends State<AssistantFormScreen> {
 
                               Assistant assistant = Assistant(
                                 userId: FirebaseAuth.instance.currentUser!.uid,
+                                userName: user!.firstName + user!.lastName,
                                 date: dateController.text,
                                 hampers: hampersController.text,
                                 members: membersController.text,
