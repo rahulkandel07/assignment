@@ -40,7 +40,7 @@ class Assistant {
   factory Assistant.fromMap(Map<String, dynamic> map) {
     return Assistant(
       userId: map['userId'] as String,
-      userName: map['userName'] as String,
+      userName: map['userName'].toString(),
       members: map['members'] as String,
       date: map['date'] as String,
       notes: map['notes'] as String,
