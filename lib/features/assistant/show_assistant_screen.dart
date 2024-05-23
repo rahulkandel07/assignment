@@ -157,6 +157,7 @@ class _ShowAssistantScreenState extends State<ShowAssistantScreen> {
             ],
           ),
           5.verticalSpace,
+          Text("Full name: ${assistant.userName}"),
           Text(assistant.notes),
           5.verticalSpace,
           Row(
