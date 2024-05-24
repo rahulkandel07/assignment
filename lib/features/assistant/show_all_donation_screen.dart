@@ -242,6 +242,8 @@ class _ShowAllDonationRequestState extends State<ShowAllDonationRequest> {
           5.verticalSpace,
           Text(assistant.notes),
           5.verticalSpace,
+          Text("Full name: ${assistant.userName}"),
+          5.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
